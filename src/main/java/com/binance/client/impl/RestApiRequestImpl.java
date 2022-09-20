@@ -1,5 +1,6 @@
 package com.binance.client.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -1070,7 +1071,9 @@ class RestApiRequestImpl {
         request.jsonParser = (jsonWrapper -> {
             Order result = new Order();
             result.setClientOrderId(jsonWrapper.getString("clientOrderId"));
-            result.setCumQty(jsonWrapper.getBigDecimal("cumQty"));
+            if (jsonWrapper.containKey("cumQty")) {
+            	result.setCumQty(jsonWrapper.getBigDecimal(("cumQty")));
+            }
             result.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
             result.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
             result.setOrderId(jsonWrapper.getLong("orderId"));
@@ -1113,33 +1116,35 @@ class RestApiRequestImpl {
             JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
             dataArray.forEach((item) -> {
                 Order o = new Order();
-                o.setClientOrderId(jsonWrapper.getString("clientOrderId"));
-                o.setCumQty(jsonWrapper.getBigDecimal("cumQty"));
-                o.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
-                o.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
-                o.setOrderId(jsonWrapper.getLong("orderId"));
-                o.setAvgPrice(jsonWrapper.getBigDecimal("avgPrice"));
-                o.setOrigQty(jsonWrapper.getBigDecimal("origQty"));
-                o.setPrice(jsonWrapper.getBigDecimal("price"));
-                o.setReduceOnly(jsonWrapper.getBoolean("reduceOnly"));
-                o.setSide(jsonWrapper.getString("side"));
-                o.setPositionSide(jsonWrapper.getString("positionSide"));
-                o.setStatus(jsonWrapper.getString("status"));
-                o.setStopPrice(jsonWrapper.getBigDecimal("stopPrice"));
-                o.setClosePosition(jsonWrapper.getBoolean("closePosition"));
-                o.setSymbol(jsonWrapper.getString("symbol"));
-                o.setTimeInForce(jsonWrapper.getString("timeInForce"));
-                o.setType(jsonWrapper.getString("type"));
-                o.setOrigType(jsonWrapper.getString("origType"));
-                if (jsonWrapper.containKey("activatePrice")) {
-                    o.setActivatePrice(jsonWrapper.getBigDecimal("activatePrice"));
+                o.setClientOrderId(item.getString("clientOrderId"));
+                if (item.containKey("cumQty")) {
+                	o.setCumQty(item.getBigDecimalOrDefault("cumQty", new BigDecimal(0)));
                 }
-                if (jsonWrapper.containKey("priceRate")) {
-                    o.setActivatePrice(jsonWrapper.getBigDecimal("priceRate"));
+                o.setCumQuote(item.getBigDecimal("cumQuote"));
+                o.setExecutedQty(item.getBigDecimal("executedQty"));
+                o.setOrderId(item.getLong("orderId"));
+                o.setAvgPrice(item.getBigDecimal("avgPrice"));
+                o.setOrigQty(item.getBigDecimal("origQty"));
+                o.setPrice(item.getBigDecimal("price"));
+                o.setReduceOnly(item.getBoolean("reduceOnly"));
+                o.setSide(item.getString("side"));
+                o.setPositionSide(item.getString("positionSide"));
+                o.setStatus(item.getString("status"));
+                o.setStopPrice(item.getBigDecimal("stopPrice"));
+                o.setClosePosition(item.getBoolean("closePosition"));
+                o.setSymbol(item.getString("symbol"));
+                o.setTimeInForce(item.getString("timeInForce"));
+                o.setType(item.getString("type"));
+                o.setOrigType(item.getString("origType"));
+                if (item.containKey("activatePrice")) {
+                    o.setActivatePrice(item.getBigDecimal("activatePrice"));
                 }
-                o.setUpdateTime(jsonWrapper.getLong("updateTime"));
-                o.setWorkingType(jsonWrapper.getString("workingType"));
-                o.setPriceProtect(jsonWrapper.getBoolean("priceProtect"));
+                if (item.containKey("priceRate")) {
+                    o.setActivatePrice(item.getBigDecimal("priceRate"));
+                }
+                o.setUpdateTime(item.getLong("updateTime"));
+                o.setWorkingType(item.getString("workingType"));
+                o.setPriceProtect(item.getBoolean("priceProtect"));
                 result.add(o);
             });
             return result;
@@ -1162,33 +1167,35 @@ class RestApiRequestImpl {
             JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
             dataArray.forEach((item) -> {
                 Order o = new Order();
-                o.setClientOrderId(jsonWrapper.getString("clientOrderId"));
-                o.setCumQty(jsonWrapper.getBigDecimal("cumQty"));
-                o.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
-                o.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
-                o.setOrderId(jsonWrapper.getLong("orderId"));
-                o.setAvgPrice(jsonWrapper.getBigDecimal("avgPrice"));
-                o.setOrigQty(jsonWrapper.getBigDecimal("origQty"));
-                o.setPrice(jsonWrapper.getBigDecimal("price"));
-                o.setReduceOnly(jsonWrapper.getBoolean("reduceOnly"));
-                o.setSide(jsonWrapper.getString("side"));
-                o.setPositionSide(jsonWrapper.getString("positionSide"));
-                o.setStatus(jsonWrapper.getString("status"));
-                o.setStopPrice(jsonWrapper.getBigDecimal("stopPrice"));
-                o.setClosePosition(jsonWrapper.getBoolean("closePosition"));
-                o.setSymbol(jsonWrapper.getString("symbol"));
-                o.setTimeInForce(jsonWrapper.getString("timeInForce"));
-                o.setType(jsonWrapper.getString("type"));
-                o.setOrigType(jsonWrapper.getString("origType"));
-                if (jsonWrapper.containKey("activatePrice")) {
-                    o.setActivatePrice(jsonWrapper.getBigDecimal("activatePrice"));
+                o.setClientOrderId(item.getString("clientOrderId"));
+                if (item.containKey("cumQty")) {
+                	o.setCumQty(item.getBigDecimal("cumQty"));
                 }
-                if (jsonWrapper.containKey("priceRate")) {
-                    o.setActivatePrice(jsonWrapper.getBigDecimal("priceRate"));
+                o.setCumQuote(item.getBigDecimal("cumQuote"));
+                o.setExecutedQty(item.getBigDecimal("executedQty"));
+                o.setOrderId(item.getLong("orderId"));
+                o.setAvgPrice(item.getBigDecimal("avgPrice"));
+                o.setOrigQty(item.getBigDecimal("origQty"));
+                o.setPrice(item.getBigDecimal("price"));
+                o.setReduceOnly(item.getBoolean("reduceOnly"));
+                o.setSide(item.getString("side"));
+                o.setPositionSide(item.getString("positionSide"));
+                o.setStatus(item.getString("status"));
+                o.setStopPrice(item.getBigDecimal("stopPrice"));
+                o.setClosePosition(item.getBoolean("closePosition"));
+                o.setSymbol(item.getString("symbol"));
+                o.setTimeInForce(item.getString("timeInForce"));
+                o.setType(item.getString("type"));
+                o.setOrigType(item.getString("origType"));
+                if (item.containKey("activatePrice")) {
+                    o.setActivatePrice(item.getBigDecimal("activatePrice"));
                 }
-                o.setUpdateTime(jsonWrapper.getLong("updateTime"));
-                o.setWorkingType(jsonWrapper.getString("workingType"));
-                o.setPriceProtect(jsonWrapper.getBoolean("priceProtect"));
+                if (item.containKey("priceRate")) {
+                    o.setActivatePrice(item.getBigDecimal("priceRate"));
+                }
+                o.setUpdateTime(item.getLong("updateTime"));
+                o.setWorkingType(item.getString("workingType"));
+                o.setPriceProtect(item.getBoolean("priceProtect"));
                 result.add(o);
             });
             return result;
