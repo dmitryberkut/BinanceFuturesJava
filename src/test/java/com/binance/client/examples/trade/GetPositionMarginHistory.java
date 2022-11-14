@@ -1,8 +1,11 @@
 package com.binance.client.examples.trade;
 
+import java.util.List;
+
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.examples.constants.PrivateConfig;
+import com.binance.client.model.trade.WalletDeltaLog;
 
 /**
  * @author : wangwanlu
@@ -15,12 +18,12 @@ public class GetPositionMarginHistory {
 
     public static void main(String[] args) {
         RequestOptions options = new RequestOptions();
-        SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY,
-                options);
+        SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY, options);
 
         long endTime = System.currentTimeMillis();
         long startTime = endTime - (24 * 60 * 60 * 1000);
         int limit = 500;
-        System.out.println(syncRequestClient.getPositionMarginHistory("BTCUSDT", INCREASE_MARGIN_TYPE, startTime, endTime, limit));
+        List<WalletDeltaLog> list = syncRequestClient.getPositionMarginHistory("BTCUSDT", INCREASE_MARGIN_TYPE, startTime, endTime, limit); 
+        System.out.println(list);//[Executing] -2014: API-key format invalid. !!!
     }
 }
