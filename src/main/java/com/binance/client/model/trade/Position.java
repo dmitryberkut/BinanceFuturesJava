@@ -3,139 +3,136 @@ package com.binance.client.model.trade;
 import com.binance.client.constant.BinanceApiConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Position {
+public class Position implements Serializable {
 
-    private String symbol;
+	private static final long serialVersionUID = -6502040252434142093L;
 
-    private BigDecimal initialMargin;
+	private String symbol;
 
-    private BigDecimal maintMargin;
+	private BigDecimal initialMargin;
 
-    private BigDecimal unrealizedProfit;
+	private BigDecimal maintMargin;
 
-    private BigDecimal positionInitialMargin;
+	private BigDecimal unrealizedProfit;
 
-    private BigDecimal openOrderInitialMargin;
+	private BigDecimal positionInitialMargin;
 
-    private BigDecimal leverage;
+	private BigDecimal openOrderInitialMargin;
 
-    private Boolean isolated;
+	private BigDecimal leverage;
 
-    private String entryPrice;
+	private Boolean isolated;
 
-    private String maxNotional;
+	private String entryPrice;
 
-    private String positionSide;
+	private String maxNotional;
 
-    private BigDecimal positionAmt;
+	private String positionSide;
 
+	private BigDecimal positionAmt;
 
-    public BigDecimal getPositionAmt() {
-        return positionAmt;
-    }
+	public BigDecimal getPositionAmt() {
+		return positionAmt;
+	}
 
-    public void setPositionAmt(BigDecimal positionAmt) {
-        this.positionAmt = positionAmt;
-    }
+	public void setPositionAmt(BigDecimal positionAmt) {
+		this.positionAmt = positionAmt;
+	}
 
-    public Boolean getIsolated() {
-        return isolated;
-    }
+	public Boolean getIsolated() {
+		return isolated;
+	}
 
-    public void setIsolated(Boolean isolated) {
-        this.isolated = isolated;
-    }
+	public void setIsolated(Boolean isolated) {
+		this.isolated = isolated;
+	}
 
-    public BigDecimal getLeverage() {
-        return leverage;
-    }
+	public BigDecimal getLeverage() {
+		return leverage;
+	}
 
-    public void setLeverage(BigDecimal leverage) {
-        this.leverage = leverage;
-    }
+	public void setLeverage(BigDecimal leverage) {
+		this.leverage = leverage;
+	}
 
-    public BigDecimal getInitialMargin() {
-        return initialMargin;
-    }
+	public BigDecimal getInitialMargin() {
+		return initialMargin;
+	}
 
-    public void setInitialMargin(BigDecimal initialMargin) {
-        this.initialMargin = initialMargin;
-    }
+	public void setInitialMargin(BigDecimal initialMargin) {
+		this.initialMargin = initialMargin;
+	}
 
-    public BigDecimal getMaintMargin() {
-        return maintMargin;
-    }
+	public BigDecimal getMaintMargin() {
+		return maintMargin;
+	}
 
-    public void setMaintMargin(BigDecimal maintMargin) {
-        this.maintMargin = maintMargin;
-    }
+	public void setMaintMargin(BigDecimal maintMargin) {
+		this.maintMargin = maintMargin;
+	}
 
-    public BigDecimal getOpenOrderInitialMargin() {
-        return openOrderInitialMargin;
-    }
+	public BigDecimal getOpenOrderInitialMargin() {
+		return openOrderInitialMargin;
+	}
 
-    public void setOpenOrderInitialMargin(BigDecimal openOrderInitialMargin) {
-        this.openOrderInitialMargin = openOrderInitialMargin;
-    }
+	public void setOpenOrderInitialMargin(BigDecimal openOrderInitialMargin) {
+		this.openOrderInitialMargin = openOrderInitialMargin;
+	}
 
-    public BigDecimal getPositionInitialMargin() {
-        return positionInitialMargin;
-    }
+	public BigDecimal getPositionInitialMargin() {
+		return positionInitialMargin;
+	}
 
-    public void setPositionInitialMargin(BigDecimal positionInitialMargin) {
-        this.positionInitialMargin = positionInitialMargin;
-    }
+	public void setPositionInitialMargin(BigDecimal positionInitialMargin) {
+		this.positionInitialMargin = positionInitialMargin;
+	}
 
-    public String getSymbol() {
-        return symbol;
-    }
+	public String getSymbol() {
+		return symbol;
+	}
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 
-    public BigDecimal getUnrealizedProfit() {
-        return unrealizedProfit;
-    }
+	public BigDecimal getUnrealizedProfit() {
+		return unrealizedProfit;
+	}
 
-    public void setUnrealizedProfit(BigDecimal unrealizedProfit) {
-        this.unrealizedProfit = unrealizedProfit;
-    }
+	public void setUnrealizedProfit(BigDecimal unrealizedProfit) {
+		this.unrealizedProfit = unrealizedProfit;
+	}
 
-    public String getEntryPrice() {
-        return entryPrice;
-    }
+	public String getEntryPrice() {
+		return entryPrice;
+	}
 
-    public void setEntryPrice(String entryPrice) {
-        this.entryPrice = entryPrice;
-    }
+	public void setEntryPrice(String entryPrice) {
+		this.entryPrice = entryPrice;
+	}
 
-    public String getMaxNotional() {
-        return maxNotional;
-    }
+	public String getMaxNotional() {
+		return maxNotional;
+	}
 
-    public void setMaxNotional(String maxNotional) {
-        this.maxNotional = maxNotional;
-    }
+	public void setMaxNotional(String maxNotional) {
+		this.maxNotional = maxNotional;
+	}
 
-    public String getPositionSide() {
-        return positionSide;
-    }
+	public String getPositionSide() {
+		return positionSide;
+	}
 
-    public void setPositionSide(String positionSide) {
-        this.positionSide = positionSide;
-    }
+	public void setPositionSide(String positionSide) {
+		this.positionSide = positionSide;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("symbol", symbol).append("initialMargin", initialMargin).append("maintMargin", maintMargin)
-                .append("unrealizedProfit", unrealizedProfit).append("positionInitialMargin", positionInitialMargin)
-                .append("openOrderInitialMargin", openOrderInitialMargin).append("leverage", leverage)
-                .append("isolated", isolated).append("entryPrice", entryPrice)
-                .append("maxNotional", maxNotional).append("positionSide", positionSide)
-                .append("positionAmt", positionAmt).toString();
-    }
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol).append("initialMargin", initialMargin).append("maintMargin", maintMargin).append("unrealizedProfit", unrealizedProfit).append("positionInitialMargin", positionInitialMargin).append("openOrderInitialMargin", openOrderInitialMargin).append("leverage", leverage).append("isolated", isolated)
+				.append("entryPrice", entryPrice).append("maxNotional", maxNotional).append("positionSide", positionSide).append("positionAmt", positionAmt).toString();
+	}
 }

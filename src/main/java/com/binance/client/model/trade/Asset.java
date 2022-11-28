@@ -3,132 +3,136 @@ package com.binance.client.model.trade;
 import com.binance.client.constant.BinanceApiConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Asset {
+public class Asset implements Serializable {
 
-    private String asset;
+	private static final long serialVersionUID = -7732576894335381503L;
 
-    private BigDecimal walletBalance;
+	private String asset;
 
-    private BigDecimal unrealizedProfit;
+	private BigDecimal walletBalance;
 
-    private BigDecimal marginBalance;
+	private BigDecimal unrealizedProfit;
 
-    private BigDecimal maintMargin;
+	private BigDecimal marginBalance;
 
-    private BigDecimal initialMargin;
+	private BigDecimal maintMargin;
 
-    private BigDecimal positionInitialMargin;
+	private BigDecimal initialMargin;
 
-    private BigDecimal openOrderInitialMargin;
+	private BigDecimal positionInitialMargin;
 
-    private BigDecimal crossWalletBalance;
+	private BigDecimal openOrderInitialMargin;
 
-    private BigDecimal crossUnPnl;
+	private BigDecimal crossWalletBalance;
 
-    private BigDecimal availableBalance;
+	private BigDecimal crossUnPnl;
 
-    private BigDecimal maxWithdrawAmount;
+	private BigDecimal availableBalance;
 
-    public BigDecimal getWalletBalance() { return walletBalance; }
+	private BigDecimal maxWithdrawAmount;
 
-    public void setWalletBalance(BigDecimal walletBalance) { this.walletBalance = walletBalance; }
+	public BigDecimal getWalletBalance() {
+		return walletBalance;
+	}
 
-    public BigDecimal getCrossWalletBalance() { return crossWalletBalance; }
+	public void setWalletBalance(BigDecimal walletBalance) {
+		this.walletBalance = walletBalance;
+	}
 
-    public void setCrossWalletBalance(BigDecimal crossWalletBalance) {
-        this.crossWalletBalance = crossWalletBalance;
-    }
+	public BigDecimal getCrossWalletBalance() {
+		return crossWalletBalance;
+	}
 
-    public BigDecimal getCrossUnPnl() {
-        return crossUnPnl;
-    }
+	public void setCrossWalletBalance(BigDecimal crossWalletBalance) {
+		this.crossWalletBalance = crossWalletBalance;
+	}
 
-    public void setCrossUnPnl(BigDecimal crossUnPnl) {
-        this.crossUnPnl = crossUnPnl;
-    }
+	public BigDecimal getCrossUnPnl() {
+		return crossUnPnl;
+	}
 
-    public BigDecimal getAvailableBalance() {
-        return availableBalance;
-    }
+	public void setCrossUnPnl(BigDecimal crossUnPnl) {
+		this.crossUnPnl = crossUnPnl;
+	}
 
-    public void setAvailableBalance(BigDecimal availableBalance) {
-        this.availableBalance = availableBalance;
-    }
+	public BigDecimal getAvailableBalance() {
+		return availableBalance;
+	}
 
-    public String getAsset() {
-        return asset;
-    }
+	public void setAvailableBalance(BigDecimal availableBalance) {
+		this.availableBalance = availableBalance;
+	}
 
-    public void setAsset(String asset) {
-        this.asset = asset;
-    }
+	public String getAsset() {
+		return asset;
+	}
 
-    public BigDecimal getInitialMargin() {
-        return initialMargin;
-    }
+	public void setAsset(String asset) {
+		this.asset = asset;
+	}
 
-    public void setInitialMargin(BigDecimal initialMargin) {
-        this.initialMargin = initialMargin;
-    }
+	public BigDecimal getInitialMargin() {
+		return initialMargin;
+	}
 
-    public BigDecimal getMaintMargin() {
-        return maintMargin;
-    }
+	public void setInitialMargin(BigDecimal initialMargin) {
+		this.initialMargin = initialMargin;
+	}
 
-    public void setMaintMargin(BigDecimal maintMargin) {
-        this.maintMargin = maintMargin;
-    }
+	public BigDecimal getMaintMargin() {
+		return maintMargin;
+	}
 
-    public BigDecimal getMarginBalance() {
-        return marginBalance;
-    }
+	public void setMaintMargin(BigDecimal maintMargin) {
+		this.maintMargin = maintMargin;
+	}
 
-    public void setMarginBalance(BigDecimal marginBalance) {
-        this.marginBalance = marginBalance;
-    }
+	public BigDecimal getMarginBalance() {
+		return marginBalance;
+	}
 
-    public BigDecimal getMaxWithdrawAmount() {
-        return maxWithdrawAmount;
-    }
+	public void setMarginBalance(BigDecimal marginBalance) {
+		this.marginBalance = marginBalance;
+	}
 
-    public void setMaxWithdrawAmount(BigDecimal maxWithdrawAmount) {
-        this.maxWithdrawAmount = maxWithdrawAmount;
-    }
+	public BigDecimal getMaxWithdrawAmount() {
+		return maxWithdrawAmount;
+	}
 
-    public BigDecimal getOpenOrderInitialMargin() {
-        return openOrderInitialMargin;
-    }
+	public void setMaxWithdrawAmount(BigDecimal maxWithdrawAmount) {
+		this.maxWithdrawAmount = maxWithdrawAmount;
+	}
 
-    public void setOpenOrderInitialMargin(BigDecimal openOrderInitialMargin) {
-        this.openOrderInitialMargin = openOrderInitialMargin;
-    }
+	public BigDecimal getOpenOrderInitialMargin() {
+		return openOrderInitialMargin;
+	}
 
-    public BigDecimal getPositionInitialMargin() {
-        return positionInitialMargin;
-    }
+	public void setOpenOrderInitialMargin(BigDecimal openOrderInitialMargin) {
+		this.openOrderInitialMargin = openOrderInitialMargin;
+	}
 
-    public void setPositionInitialMargin(BigDecimal positionInitialMargin) {
-        this.positionInitialMargin = positionInitialMargin;
-    }
+	public BigDecimal getPositionInitialMargin() {
+		return positionInitialMargin;
+	}
 
-    public BigDecimal getUnrealizedProfit() {
-        return unrealizedProfit;
-    }
+	public void setPositionInitialMargin(BigDecimal positionInitialMargin) {
+		this.positionInitialMargin = positionInitialMargin;
+	}
 
-    public void setUnrealizedProfit(BigDecimal unrealizedProfit) {
-        this.unrealizedProfit = unrealizedProfit;
-    }
+	public BigDecimal getUnrealizedProfit() {
+		return unrealizedProfit;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("asset", asset)
-                .append("walletBalance", walletBalance).append("unrealizedProfit", unrealizedProfit)
-                .append("marginBalance", marginBalance).append("maintMargin", maintMargin).append("initialMargin", initialMargin)
-                .append("positionInitialMargin", positionInitialMargin).append("openOrderInitialMargin", openOrderInitialMargin)
-                .append("crossWalletBalance", crossWalletBalance).append("crossUnPnl", crossUnPnl)
-                .append("availableBalance", availableBalance).append("maxWithdrawAmount", maxWithdrawAmount)
-                .toString();
-    }
+	public void setUnrealizedProfit(BigDecimal unrealizedProfit) {
+		this.unrealizedProfit = unrealizedProfit;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("asset", asset).append("walletBalance", walletBalance).append("unrealizedProfit", unrealizedProfit).append("marginBalance", marginBalance).append("maintMargin", maintMargin).append("initialMargin", initialMargin).append("positionInitialMargin", positionInitialMargin)
+				.append("openOrderInitialMargin", openOrderInitialMargin).append("crossWalletBalance", crossWalletBalance).append("crossUnPnl", crossUnPnl).append("availableBalance", availableBalance).append("maxWithdrawAmount", maxWithdrawAmount).toString();
+	}
 }
