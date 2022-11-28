@@ -1,54 +1,57 @@
 package com.binance.client.model.market;
 
 import com.binance.client.constant.BinanceApiConstants;
+
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class RateLimit {
+public class RateLimit implements Serializable {
 
-    private String rateLimitType;
+	private static final long serialVersionUID = -5091467751759083798L;
 
-    private String interval;
+	private String rateLimitType;
 
-    private Long intervalNum;
+	private String interval;
 
-    private Long limit;
+	private Long intervalNum;
 
-    public String getRateLimitType() {
-        return rateLimitType;
-    }
+	private Long limit;
 
-    public void setRateLimitType(String rateLimitType) {
-        this.rateLimitType = rateLimitType;
-    }
+	public String getRateLimitType() {
+		return rateLimitType;
+	}
 
-    public String getInterval() {
-        return interval;
-    }
+	public void setRateLimitType(String rateLimitType) {
+		this.rateLimitType = rateLimitType;
+	}
 
-    public void setInterval(String interval) {
-        this.interval = interval;
-    }
+	public String getInterval() {
+		return interval;
+	}
 
-    public Long getIntervalNum() {
-        return intervalNum;
-    }
+	public void setInterval(String interval) {
+		this.interval = interval;
+	}
 
-    public void setIntervalNum(Long intervalNum) {
-        this.intervalNum = intervalNum;
-    }
+	public Long getIntervalNum() {
+		return intervalNum;
+	}
 
-    public Long getLimit() {
-        return limit;
-    }
+	public void setIntervalNum(Long intervalNum) {
+		this.intervalNum = intervalNum;
+	}
 
-    public void setLimit(Long limit) {
-        this.limit = limit;
-    }
+	public Long getLimit() {
+		return limit;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("rateLimitType", rateLimitType).append("interval", interval).append("intervalNum", intervalNum)
-                .append("limit", limit).toString();
-    }
+	public void setLimit(Long limit) {
+		this.limit = limit;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("rateLimitType", rateLimitType).append("interval", interval).append("intervalNum", intervalNum).append("limit", limit).toString();
+	}
 }

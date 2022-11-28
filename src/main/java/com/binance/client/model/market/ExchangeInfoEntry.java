@@ -5,149 +5,146 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
 import java.util.Map;
-
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ExchangeInfoEntry {
+public class ExchangeInfoEntry implements Serializable {
 
-    private String symbol;
+	private static final long serialVersionUID = 4870004612671521994L;
 
-    private String status;
+	private String symbol;
 
-    private BigDecimal maintMarginPercent;
+	private String status;
 
-    private BigDecimal requiredMarginPercent;
+	private BigDecimal maintMarginPercent;
 
-    private String baseAsset;
+	private BigDecimal requiredMarginPercent;
 
-    private String quoteAsset;
+	private String baseAsset;
 
-    private Long pricePrecision;
+	private String quoteAsset;
 
-    private Long quantityPrecision;
+	private Long pricePrecision;
 
-    private Long baseAssetPrecision;
+	private Long quantityPrecision;
 
-    private Long quotePrecision;
+	private Long baseAssetPrecision;
 
-    private List<String> orderTypes;
+	private Long quotePrecision;
 
-    private List<String> timeInForce;
+	private List<String> orderTypes;
 
-    private List<List<Map<String, String>>> filters;
+	private List<String> timeInForce;
 
-    public String getSymbol() {
-        return symbol;
-    }
+	private List<List<Map<String, String>>> filters;
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+	public String getSymbol() {
+		return symbol;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public BigDecimal getMaintMarginPercent() {
-        return maintMarginPercent;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public void setMaintMarginPercent(BigDecimal maintMarginPercent) {
-        this.maintMarginPercent = maintMarginPercent;
-    }
+	public BigDecimal getMaintMarginPercent() {
+		return maintMarginPercent;
+	}
 
-    public BigDecimal getRequiredMarginPercent() {
-        return requiredMarginPercent;
-    }
+	public void setMaintMarginPercent(BigDecimal maintMarginPercent) {
+		this.maintMarginPercent = maintMarginPercent;
+	}
 
-    public void setRequiredMarginPercent(BigDecimal requiredMarginPercent) {
-        this.requiredMarginPercent = requiredMarginPercent;
-    }
+	public BigDecimal getRequiredMarginPercent() {
+		return requiredMarginPercent;
+	}
 
-    public String getBaseAsset() {
-        return baseAsset;
-    }
+	public void setRequiredMarginPercent(BigDecimal requiredMarginPercent) {
+		this.requiredMarginPercent = requiredMarginPercent;
+	}
 
-    public void setBaseAsset(String baseAsset) {
-        this.baseAsset = baseAsset;
-    }
+	public String getBaseAsset() {
+		return baseAsset;
+	}
 
-    public String getQuoteAsset() {
-        return quoteAsset;
-    }
+	public void setBaseAsset(String baseAsset) {
+		this.baseAsset = baseAsset;
+	}
 
-    public void setQuoteAsset(String quoteAsset) {
-        this.quoteAsset = quoteAsset;
-    }
+	public String getQuoteAsset() {
+		return quoteAsset;
+	}
 
-    public Long getPricePrecision() {
-        return pricePrecision;
-    }
+	public void setQuoteAsset(String quoteAsset) {
+		this.quoteAsset = quoteAsset;
+	}
 
-    public void setPricePrecision(Long pricePrecision) {
-        this.pricePrecision = pricePrecision;
-    }
+	public Long getPricePrecision() {
+		return pricePrecision;
+	}
 
-    public Long getQuantityPrecision() {
-        return quantityPrecision;
-    }
+	public void setPricePrecision(Long pricePrecision) {
+		this.pricePrecision = pricePrecision;
+	}
 
-    public void setQuantityPrecision(Long quantityPrecision) {
-        this.quantityPrecision = quantityPrecision;
-    }
+	public Long getQuantityPrecision() {
+		return quantityPrecision;
+	}
 
-    public Long getBaseAssetPrecision() {
-        return baseAssetPrecision;
-    }
+	public void setQuantityPrecision(Long quantityPrecision) {
+		this.quantityPrecision = quantityPrecision;
+	}
 
-    public void setBaseAssetPrecision(Long baseAssetPrecision) {
-        this.baseAssetPrecision = baseAssetPrecision;
-    }
+	public Long getBaseAssetPrecision() {
+		return baseAssetPrecision;
+	}
 
-    public Long getQuotePrecision() {
-        return quotePrecision;
-    }
+	public void setBaseAssetPrecision(Long baseAssetPrecision) {
+		this.baseAssetPrecision = baseAssetPrecision;
+	}
 
-    public void setQuotePrecision(Long quotePrecision) {
-        this.quotePrecision = quotePrecision;
-    }
+	public Long getQuotePrecision() {
+		return quotePrecision;
+	}
 
-    public List<String> getOrderTypes() {
-        return orderTypes;
-    }
+	public void setQuotePrecision(Long quotePrecision) {
+		this.quotePrecision = quotePrecision;
+	}
 
-    public void setOrderTypes(List<String> orderTypes) {
-        this.orderTypes = orderTypes;
-    }
+	public List<String> getOrderTypes() {
+		return orderTypes;
+	}
 
-    public List<String> getTimeInForce() {
-        return timeInForce;
-    }
+	public void setOrderTypes(List<String> orderTypes) {
+		this.orderTypes = orderTypes;
+	}
 
-    public void setTimeInForce(List<String> timeInForce) {
-        this.timeInForce = timeInForce;
-    }
+	public List<String> getTimeInForce() {
+		return timeInForce;
+	}
 
-    public List<List<Map<String, String>>> getFilters() {
-        return filters;
-    }
+	public void setTimeInForce(List<String> timeInForce) {
+		this.timeInForce = timeInForce;
+	}
 
-    public void setFilters(List<List<Map<String, String>>> filters) {
-        this.filters = filters;
-    }
+	public List<List<Map<String, String>>> getFilters() {
+		return filters;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
-                .append("status", status).append("maintMarginPercent", maintMarginPercent)
-                .append("requiredMarginPercent", requiredMarginPercent).append("baseAsset", baseAsset)
-                .append("quoteAsset", quoteAsset).append("pricePrecision", pricePrecision)
-                .append("quantityPrecision", quantityPrecision).append("baseAssetPrecision", baseAssetPrecision)
-                .append("quotePrecision", quotePrecision).append("orderTypes", orderTypes)
-                .append("timeInForce", timeInForce).append("filters", filters).toString();
-    }
+	public void setFilters(List<List<Map<String, String>>> filters) {
+		this.filters = filters;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol).append("status", status).append("maintMarginPercent", maintMarginPercent).append("requiredMarginPercent", requiredMarginPercent).append("baseAsset", baseAsset).append("quoteAsset", quoteAsset).append("pricePrecision", pricePrecision).append("quantityPrecision", quantityPrecision)
+				.append("baseAssetPrecision", baseAssetPrecision).append("quotePrecision", quotePrecision).append("orderTypes", orderTypes).append("timeInForce", timeInForce).append("filters", filters).toString();
+	}
 }

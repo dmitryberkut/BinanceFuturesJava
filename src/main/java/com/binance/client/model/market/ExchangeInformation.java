@@ -3,64 +3,65 @@ package com.binance.client.model.market;
 import com.binance.client.constant.BinanceApiConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ExchangeInformation {
+public class ExchangeInformation implements Serializable {
 
-    private String timezone;
+	private static final long serialVersionUID = 3676788378809690074L;
 
-    private Long serverTime;
+	private String timezone;
 
-    private List<RateLimit> rateLimits;
+	private Long serverTime;
 
-    private List<ExchangeFilter> exchangeFilters;
+	private List<RateLimit> rateLimits;
 
-    private List<ExchangeInfoEntry> symbols;
+	private List<ExchangeFilter> exchangeFilters;
 
-    public String getTimezone() {
-        return timezone;
-    }
+	private List<ExchangeInfoEntry> symbols;
 
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
-    }
+	public String getTimezone() {
+		return timezone;
+	}
 
-    public Long getServerTime() {
-        return serverTime;
-    }
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
+	}
 
-    public void setServerTime(Long serverTime) {
-        this.serverTime = serverTime;
-    }
+	public Long getServerTime() {
+		return serverTime;
+	}
 
-    public List<RateLimit> getRateLimits() {
-        return rateLimits;
-    }
+	public void setServerTime(Long serverTime) {
+		this.serverTime = serverTime;
+	}
 
-    public void setRateLimits(List<RateLimit> rateLimits) {
-        this.rateLimits = rateLimits;
-    }
+	public List<RateLimit> getRateLimits() {
+		return rateLimits;
+	}
 
-    public List<ExchangeFilter> getExchangeFilters() {
-        return exchangeFilters;
-    }
+	public void setRateLimits(List<RateLimit> rateLimits) {
+		this.rateLimits = rateLimits;
+	}
 
-    public void setExchangeFilters(List<ExchangeFilter> exchangeFilters) {
-        this.exchangeFilters = exchangeFilters;
-    }
+	public List<ExchangeFilter> getExchangeFilters() {
+		return exchangeFilters;
+	}
 
-    public List<ExchangeInfoEntry> getSymbols() {
-        return symbols;
-    }
+	public void setExchangeFilters(List<ExchangeFilter> exchangeFilters) {
+		this.exchangeFilters = exchangeFilters;
+	}
 
-    public void setSymbols(List<ExchangeInfoEntry> symbols) {
-        this.symbols = symbols;
-    }
+	public List<ExchangeInfoEntry> getSymbols() {
+		return symbols;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("timezone", timezone)
-                .append("serverTime", serverTime).append("rateLimits", rateLimits)
-                .append("exchangeFilters", exchangeFilters).append("symbols", symbols).toString();
-    }
+	public void setSymbols(List<ExchangeInfoEntry> symbols) {
+		this.symbols = symbols;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("timezone", timezone).append("serverTime", serverTime).append("rateLimits", rateLimits).append("exchangeFilters", exchangeFilters).append("symbols", symbols).toString();
+	}
 }

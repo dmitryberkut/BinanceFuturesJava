@@ -1,43 +1,47 @@
 package com.binance.client.model.market;
 
 import com.binance.client.constant.BinanceApiConstants;
+
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class ExchangeFilter {
+public class ExchangeFilter implements Serializable {
 
-    private String filterType;
+	private static final long serialVersionUID = 6323491342918286608L;
 
-    private Long maxNumOrders;
+	private String filterType;
 
-    private Long maxNumAlgoOrders;
+	private Long maxNumOrders;
 
-    public String getFilterType() {
-        return filterType;
-    }
+	private Long maxNumAlgoOrders;
 
-    public void setFilterType(String filterType) {
-        this.filterType = filterType;
-    }
+	public String getFilterType() {
+		return filterType;
+	}
 
-    public Long getMaxNumOrders() {
-        return maxNumOrders;
-    }
+	public void setFilterType(String filterType) {
+		this.filterType = filterType;
+	}
 
-    public void setMaxNumOrders(Long maxNumOrders) {
-        this.maxNumOrders = maxNumOrders;
-    }
+	public Long getMaxNumOrders() {
+		return maxNumOrders;
+	}
 
-    public Long getMaxNumAlgoOrders() {
-        return maxNumAlgoOrders;
-    }
+	public void setMaxNumOrders(Long maxNumOrders) {
+		this.maxNumOrders = maxNumOrders;
+	}
 
-    public void setMaxNumAlgoOrders(Long maxNumAlgoOrders) {
-        this.maxNumAlgoOrders = maxNumAlgoOrders;
-    }
+	public Long getMaxNumAlgoOrders() {
+		return maxNumAlgoOrders;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("filterType", filterType)
-                .append("maxNumOrders", maxNumOrders).append("maxNumAlgoOrders", maxNumAlgoOrders).toString();
-    }
+	public void setMaxNumAlgoOrders(Long maxNumAlgoOrders) {
+		this.maxNumAlgoOrders = maxNumAlgoOrders;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("filterType", filterType).append("maxNumOrders", maxNumOrders).append("maxNumAlgoOrders", maxNumAlgoOrders).toString();
+	}
 }
