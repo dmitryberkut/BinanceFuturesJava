@@ -179,6 +179,16 @@ public interface SyncRequestClient {
                     TimeInForce timeInForce, String quantity, String price, String reduceOnly,
                     String newClientOrderId, String stopPrice, String closePosition, String activationPrice,
                     String callbackRate, WorkingType workingType, String priceProtect, NewOrderRespType newOrderRespType);
+    
+    /**
+     * Send in a new order.
+     *
+     * @return Order.
+     */
+    Order postAlgoOrder(String symbol, OrderSide side, PositionSide positionSide, String algoType, OrderType orderType,
+    		TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+    		String newClientOrderId, String stopPrice, String closePosition, String activationPrice,
+    		String callbackRate, WorkingType workingType, String priceProtect);
 
     /**
      * Cancel an active order.
@@ -264,6 +274,8 @@ public interface SyncRequestClient {
      * @return Open orders.
      */
     List<Order> getOpenOrders(String symbol);
+    
+    List<Order> getOpenAlgoOrders(String symbol);
 
     /**
      * Get all account orders; active, canceled, or filled.

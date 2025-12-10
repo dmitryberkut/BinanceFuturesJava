@@ -112,6 +112,16 @@ public class SyncRequestImpl implements SyncRequestClient {
     }
     
     @Override
+    public Order postAlgoOrder(String symbol, OrderSide side, PositionSide positionSide, String algoType, OrderType orderType,
+    		TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+    		String newClientOrderId, String stopPrice, String closePosition, String activationPrice,
+    		String callbackRate, WorkingType workingType, String priceProtect) {
+    	return RestApiInvoker.callSync(requestImpl.postAlgoOrder(symbol, side, positionSide, algoType, orderType,
+    			timeInForce, quantity, reduceOnly, price, newClientOrderId, stopPrice,
+    			closePosition, activationPrice, callbackRate, workingType, priceProtect));
+    }
+    
+    @Override
     public Order cancelOrder(String symbol, Long orderId, String origClientOrderId) {
         return RestApiInvoker.callSync(requestImpl.cancelOrder(symbol, orderId, origClientOrderId));
     }
@@ -169,6 +179,11 @@ public class SyncRequestImpl implements SyncRequestClient {
     @Override
     public List<Order> getOpenOrders(String symbol) {
         return RestApiInvoker.callSync(requestImpl.getOpenOrders(symbol));
+    }
+    
+    @Override
+    public List<Order> getOpenAlgoOrders(String symbol) {
+    	return RestApiInvoker.callSync(requestImpl.getOpenAlgoOrders(symbol));
     }
     
     @Override

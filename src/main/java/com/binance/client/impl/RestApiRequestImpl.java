@@ -791,6 +791,89 @@ class RestApiRequestImpl {
         });
         return request;
     }
+    
+    RestApiRequest<Order> postAlgoOrder(String symbol, OrderSide side, PositionSide positionSide, String algoType, OrderType orderType,
+            TimeInForce timeInForce, String quantity, String reduceOnly, String price, String newClientOrderId,
+            String stopPrice, String closePosition, String activationPrice, String callBackRate,
+            WorkingType workingType, String priceProtect) {
+
+        // --- ХУК ВРЕМЕНИ ---
+        // Фиксируем время вызова метода, чтобы передать его в ордер
+        long currentTimestamp = System.currentTimeMillis(); 
+        
+        RestApiRequest<Order> request = new RestApiRequest<>();
+        UrlParamsBuilder builder = UrlParamsBuilder.build()
+                .putToUrl("symbol", symbol)
+                .putToUrl("side", side)
+                .putToUrl("positionSide", positionSide)
+                .putToUrl("algoType", algoType)
+                .putToUrl("type", orderType)
+                .putToUrl("timeInForce", timeInForce)
+                .putToUrl("quantity", quantity)
+                .putToUrl("price", price)
+                .putToUrl("reduceOnly", reduceOnly)
+                .putToUrl("newClientOrderId", newClientOrderId)
+                .putToUrl("triggerPrice", stopPrice)
+                .putToUrl("closePosition", closePosition)
+                .putToUrl("activationPrice", activationPrice)
+                .putToUrl("callbackRate", callBackRate)
+                .putToUrl("workingType", workingType)
+                .putToUrl("priceProtect", priceProtect);
+
+        request.request = createRequestByPostWithSignature("/fapi/v1/algoOrder", builder);
+
+        request.jsonParser = (jsonWrapper -> {
+            Order result = new Order();
+
+            // 1. ID Mapping
+            if (jsonWrapper.containKey("algoId")) {
+                result.setOrderId(jsonWrapper.getLong("algoId"));
+            }
+            if (jsonWrapper.containKey("clientAlgoId")) {
+                result.setClientOrderId(jsonWrapper.getString("clientAlgoId"));
+            }
+
+            // 2. Данные из аргументов
+            result.setSymbol(symbol);
+            if (side != null) result.setSide(side.toString());
+            if (orderType != null) result.setType(orderType.toString());
+            if (positionSide != null) result.setPositionSide(positionSide.toString());
+
+            // Логика executedQty = quantity (как ты просил)
+            if (StringUtils.isNotBlank(quantity)) {
+                BigDecimal qtyVal = new BigDecimal(quantity);
+                result.setOrigQty(qtyVal);
+                result.setExecutedQty(qtyVal); 
+            } else {
+                result.setOrigQty(BigDecimal.ZERO);
+                result.setExecutedQty(BigDecimal.ZERO);
+            }
+
+            if (StringUtils.isNotBlank(price)) result.setPrice(new BigDecimal(price));
+            if (StringUtils.isNotBlank(stopPrice)) result.setStopPrice(new BigDecimal(stopPrice));
+            if (StringUtils.isNotBlank(activationPrice)) result.setActivatePrice(new BigDecimal(activationPrice));
+
+            // 3. Заглушки и ВРЕМЯ
+            result.setAvgPrice(BigDecimal.ZERO);
+            result.setCumQuote(BigDecimal.ZERO);
+            result.setStatus("NEW");
+
+            if (timeInForce != null) result.setTimeInForce(timeInForce.toString());
+            result.setReduceOnly(Boolean.parseBoolean(reduceOnly));
+            result.setClosePosition(Boolean.parseBoolean(closePosition));
+            if (workingType != null) result.setWorkingType(workingType.toString());
+            result.setPriceProtect(Boolean.parseBoolean(priceProtect));
+
+            // Устанавливаем зафиксированное время создания
+            result.setUpdateTime(currentTimestamp);
+            
+            // Если в твоем классе Order есть поле setTime (обычно есть), раскомментируй эту строку:
+            // result.setTime(currentTimestamp);
+
+            return result;
+        });
+        return request;
+    }
 
     RestApiRequest<ResponseResult> changePositionSide(String dual) {
         RestApiRequest<ResponseResult> request = new RestApiRequest<>();
@@ -1147,6 +1230,86 @@ class RestApiRequestImpl {
                 o.setPriceProtect(item.getBoolean("priceProtect"));
                 result.add(o);
             });
+            return result;
+        });
+        return request;
+    }
+    
+    RestApiRequest<List<Order>> getOpenAlgoOrders(String symbol) {
+        RestApiRequest<List<Order>> request = new RestApiRequest<>();
+        UrlParamsBuilder builder = UrlParamsBuilder.build().putToUrl("symbol", symbol);
+
+        request.request = createRequestByGetWithSignature("/fapi/v1/openAlgoOrders", builder);
+
+        request.jsonParser = (jsonWrapper -> {
+            List<Order> result = new LinkedList<>();
+            JsonWrapperArray dataArray = null;
+
+            // 1. Проверяем поле "data" (это наиболее вероятно для нового API)
+            if (jsonWrapper.containKey("data")) {
+                dataArray = jsonWrapper.getJsonArray("data");
+            } 
+            // 2. Проверяем поле "orders" (старый формат, на всякий случай)
+            else if (jsonWrapper.containKey("orders")) {
+                dataArray = jsonWrapper.getJsonArray("orders");
+            }
+            // 3. Проверяем, не пришел ли массив напрямую (без обертки)
+            // В твоем JsonWrapper это может быть реализовано по-разному, 
+            // но часто getJson() возвращает JSONArray, если ответ был массивом.
+            else {
+               try {
+                   Object raw = jsonWrapper.getJson();
+                   if (raw instanceof java.util.List) { // JSONArray реализует List
+                        // Создаем обертку вручную, если библиотека позволяет, 
+                        // или используем конструктор, если он доступен (как мы делали раньше)
+                        // Но самый безопасный способ в рамках твоего класса - это каст:
+                        dataArray = new JsonWrapperArray((com.alibaba.fastjson.JSONArray) raw);
+                   }
+               } catch (Exception e) {
+                   // Игнорируем, если не удалось распознать массив
+               }
+            }
+
+            // Если массив найден, парсим
+            if (dataArray != null) {
+                dataArray.forEach((item) -> {
+                    Order o = new Order();
+
+                    // МАППИНГ ID: algoId -> orderId
+                    if (item.containKey("algoId")) o.setOrderId(item.getLong("algoId"));
+                    if (item.containKey("clientAlgoId")) o.setClientOrderId(item.getString("clientAlgoId"));
+
+                    // Основные поля
+                    if (item.containKey("symbol")) o.setSymbol(item.getString("symbol"));
+                    if (item.containKey("side")) o.setSide(item.getString("side"));
+                    if (item.containKey("positionSide")) o.setPositionSide(item.getString("positionSide"));
+                    if (item.containKey("orderType")) o.setType(item.getString("orderType")); 
+                    if (item.containKey("timeInForce")) o.setTimeInForce(item.getString("timeInForce"));
+
+                    // Цены и Количества
+                    if (item.containKey("quantity")) {
+                        BigDecimal qty = item.getBigDecimal("quantity");
+                        o.setOrigQty(qty);
+                        o.setExecutedQty(BigDecimal.ZERO); 
+                    }
+
+                    if (item.containKey("price")) o.setPrice(item.getBigDecimal("price"));
+                    
+                    // Trigger Price
+                    if (item.containKey("triggerPrice")) {
+                        o.setStopPrice(item.getBigDecimal("triggerPrice"));
+                    }
+
+                    // Статусы
+                    if (item.containKey("algoStatus")) o.setStatus(item.getString("algoStatus"));
+                    
+                    if (item.containKey("reduceOnly")) o.setReduceOnly(item.getBoolean("reduceOnly"));
+                    //if (item.containKey("bookTime")) o.setBookTime(item.getLong("bookTime"));
+                    if (item.containKey("updateTime")) o.setUpdateTime(item.getLong("updateTime"));
+
+                    result.add(o);
+                });
+            }
             return result;
         });
         return request;

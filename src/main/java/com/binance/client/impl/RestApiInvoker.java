@@ -18,6 +18,28 @@ abstract class RestApiInvoker {
 
     static void checkResponse(JsonWrapper json) {
         try {
+        	if (json.containKey("algoId") || json.containKey("clientAlgoId")) {
+        	    return;
+        	}
+        	if (json.containKey("data")) {
+                try {
+                    // Получаем исходный JSONObject из враппера
+                    com.alibaba.fastjson.JSONObject rawJson = json.getJson();
+                    com.alibaba.fastjson.JSONArray dataArr = rawJson.getJSONArray("data");
+                    
+                    // Если это массив и в нем есть элементы
+                    if (dataArr != null && dataArr.size() > 0) {
+                        com.alibaba.fastjson.JSONObject firstItem = dataArr.getJSONObject(0);
+                        // Если внутри первого элемента есть algoId - это успех
+                        if (firstItem != null && (firstItem.containsKey("algoId") || firstItem.containsKey("clientAlgoId"))) {
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    // Если не получилось распарсить data как массив ордеров - игнорируем 
+                    // и идем дальше к стандартной проверке ошибок
+                }
+            }
             if (json.containKey("success")) {
                 boolean success = json.getBoolean("success");
                 if (!success) {
