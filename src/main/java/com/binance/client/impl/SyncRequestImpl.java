@@ -130,6 +130,11 @@ public class SyncRequestImpl implements SyncRequestClient {
     public ResponseResult cancelAllOpenOrder(String symbol) {
       return RestApiInvoker.callSync(requestImpl.cancelAllOpenOrder(symbol));
     }
+    
+    @Override
+    public ResponseResult cancelAllOpenAlgoOrders(String symbol) {
+    	return RestApiInvoker.callSync(requestImpl.cancelAllOpenAlgoOrders(symbol));
+    }
 
     @Override
     public List<Object> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList) {

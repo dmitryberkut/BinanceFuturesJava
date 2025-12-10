@@ -203,6 +203,13 @@ public interface SyncRequestClient {
      * @return ResponseResult.
      */
     ResponseResult cancelAllOpenOrder(String symbol);
+    
+    /**
+     * Cancel all open algo orders.
+     *
+     * @return ResponseResult.
+     */
+    ResponseResult cancelAllOpenAlgoOrders(String symbol);
 
     /**
      * Batch cancel orders.

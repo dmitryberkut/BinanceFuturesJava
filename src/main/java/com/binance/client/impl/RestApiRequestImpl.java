@@ -1022,6 +1022,24 @@ class RestApiRequestImpl {
         });
         return request;
     }
+    
+    RestApiRequest<ResponseResult> cancelAllOpenAlgoOrders(String symbol) {
+        RestApiRequest<ResponseResult> request = new RestApiRequest<>();
+        UrlParamsBuilder builder = UrlParamsBuilder.build()
+                .putToUrl("symbol", symbol);
+
+        // Специальный эндпоинт для отмены ВСЕХ алго-ордеров (Stop, TP, etc.)
+        request.request = createRequestByDeleteWithSignature("/fapi/v1/algoOpenOrders", builder);
+
+        request.jsonParser = (jsonWrapper -> {
+            ResponseResult responseResult = new ResponseResult();
+            // Этот эндпоинт возвращает: { "code": 200, "msg": "The operation of cancel all open order is done." }
+            responseResult.setCode(jsonWrapper.getInteger("code"));
+            responseResult.setMsg(jsonWrapper.getString("msg"));
+            return responseResult;
+        });
+        return request;
+    }
 
     RestApiRequest<List<Object>> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList) {
         RestApiRequest<List<Object>> request = new RestApiRequest<>();
