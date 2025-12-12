@@ -197,6 +197,11 @@ public class SyncRequestImpl implements SyncRequestClient {
     }
     
     @Override
+    public List<Order> getAllAlgoOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
+    	return RestApiInvoker.callSync(requestImpl.getAllAlgoOrders(symbol, orderId, startTime, endTime, limit));
+    }
+    
+    @Override
     public List<AccountBalance> getBalance() {
         return RestApiInvoker.callSync(requestImpl.getBalance());
     }

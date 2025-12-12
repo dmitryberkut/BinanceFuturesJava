@@ -1383,6 +1383,95 @@ class RestApiRequestImpl {
         });
         return request;
     }
+    
+	RestApiRequest<List<Order>> getAllAlgoOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
+		RestApiRequest<List<Order>> request = new RestApiRequest<>();
+		UrlParamsBuilder builder = UrlParamsBuilder.build().putToUrl("symbol", symbol)
+				// ИСПРАВЛЕНО: передаем orderId как algoId
+				// Это позволит получить историю ордеров, начиная с этого ID (>= algoId)
+				.putToUrl("algoId", orderId).putToUrl("startTime", startTime).putToUrl("endTime", endTime)
+				.putToUrl("limit", limit);
+
+		request.request = createRequestByGetWithSignature("/fapi/v1/allAlgoOrders", builder);
+
+		request.jsonParser = (jsonWrapper -> {
+			List<Order> result = new LinkedList<>();
+			JsonWrapperArray dataArray = null;
+
+			// Логика безопасного парсинга (оставляем ту же, что и работала)
+			if (jsonWrapper.containKey("data")) {
+				dataArray = jsonWrapper.getJsonArray("data");
+			} else if (jsonWrapper.containKey("orders")) {
+				dataArray = jsonWrapper.getJsonArray("orders");
+			} else {
+				try {
+					Object raw = jsonWrapper.getJson();
+					if (raw instanceof java.util.List) {
+						dataArray = new JsonWrapperArray((com.alibaba.fastjson.JSONArray) raw);
+					}
+				} catch (Exception e) {
+					// ignore
+				}
+			}
+
+			if (dataArray != null) {
+				dataArray.forEach((item) -> {
+					Order o = new Order();
+
+					// ID
+					if (item.containKey("algoId"))
+						o.setOrderId(item.getLong("algoId"));
+					if (item.containKey("clientAlgoId"))
+						o.setClientOrderId(item.getString("clientAlgoId"));
+
+					// Основные поля
+					if (item.containKey("symbol"))
+						o.setSymbol(item.getString("symbol"));
+					if (item.containKey("side"))
+						o.setSide(item.getString("side"));
+					if (item.containKey("positionSide"))
+						o.setPositionSide(item.getString("positionSide"));
+					if (item.containKey("orderType"))
+						o.setType(item.getString("orderType"));
+					if (item.containKey("timeInForce"))
+						o.setTimeInForce(item.getString("timeInForce"));
+
+					// Количество
+					if (item.containKey("quantity")) {
+						o.setOrigQty(item.getBigDecimal("quantity"));
+					}
+					// Executed Qty
+					if (item.containKey("executedQty")) {
+						o.setExecutedQty(item.getBigDecimal("executedQty"));
+					} else {
+						o.setExecutedQty(BigDecimal.ZERO);
+					}
+
+					if (item.containKey("price"))
+						o.setPrice(item.getBigDecimal("price"));
+					if (item.containKey("averagePrice"))
+						o.setAvgPrice(item.getBigDecimal("averagePrice"));
+
+					// Trigger Price
+					if (item.containKey("triggerPrice")) {
+						o.setStopPrice(item.getBigDecimal("triggerPrice"));
+					}
+
+					// Статус
+					if (item.containKey("algoStatus"))
+						o.setStatus(item.getString("algoStatus"));
+
+					// if (item.containKey("bookTime")) o.setBookTime(item.getLong("bookTime"));
+					if (item.containKey("updateTime"))
+						o.setUpdateTime(item.getLong("updateTime"));
+
+					result.add(o);
+				});
+			}
+			return result;
+		});
+		return request;
+	}
 
     RestApiRequest<List<AccountBalance>> getBalance() {
         RestApiRequest<List<AccountBalance>> request = new RestApiRequest<>();

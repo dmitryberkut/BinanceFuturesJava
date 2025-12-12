@@ -290,6 +290,13 @@ public interface SyncRequestClient {
      * @return All orders.
      */
     List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
+    
+    /**
+     * Get all account orders; active, canceled, or filled.
+     *
+     * @return All orders.
+     */
+    List<Order> getAllAlgoOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
   
     /**
      * Get account balances.
