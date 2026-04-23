@@ -25,6 +25,7 @@ import com.binance.client.model.user.BalanceUpdate;
 import com.binance.client.model.user.OrderUpdate;
 import com.binance.client.model.user.PositionUpdate;
 import com.binance.client.model.user.UserDataUpdateEvent;
+import com.binance.client.constant.BinanceApiConstants;
 
 class WebsocketRequestImpl {
 
@@ -39,6 +40,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<AggregateTradeEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Aggregate Trade for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_PUBLIC; // PUBLIC STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.aggregateTradeChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -66,6 +68,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<MarkPriceEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Mark Price for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.markPriceChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -91,6 +94,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<CandlestickEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Candlestick for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.candlestickChannel(symbol, interval));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -129,6 +133,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<SymbolMiniTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Individual Symbol Mini Ticker for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.miniTickerChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -154,6 +159,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<List<SymbolMiniTickerEvent>> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***All Market Mini Tickers"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.miniTickerChannel());
 
         request.jsonParser = (jsonWrapper) -> {
@@ -185,6 +191,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<SymbolTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Individual Symbol Ticker for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.tickerChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -219,6 +226,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<List<SymbolTickerEvent>> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***All Market Tickers"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.tickerChannel());
 
         request.jsonParser = (jsonWrapper) -> {
@@ -260,6 +268,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<SymbolBookTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Individual Symbol Book Ticker for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_PUBLIC; // PUBLIC STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.bookTickerChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -284,6 +293,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<SymbolBookTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***All Market Book Tickers***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_PUBLIC; // PUBLIC STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.bookTickerChannel());
 
         request.jsonParser = (jsonWrapper) -> {
@@ -309,6 +319,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<LiquidationOrderEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Individual Symbol Liquidation Order for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.liquidationOrderChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -339,6 +350,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<LiquidationOrderEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***All Liquidation Orders***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_MARKET; // MARKET STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.liquidationOrderChannel());
 
         request.jsonParser = (jsonWrapper) -> {
@@ -371,6 +383,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<OrderBookEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Partial Book Depth for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_PUBLIC; // PUBLIC STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.bookDepthChannel(symbol, limit));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -416,6 +429,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<OrderBookEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***Partial Book Depth for " + symbol + "***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_PUBLIC; // PUBLIC STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.diffDepthChannel(symbol));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -461,6 +475,7 @@ class WebsocketRequestImpl {
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<UserDataUpdateEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
         request.name = "***User Data***"; 
+        request.baseUrl = BinanceApiConstants.WS_API_BASE_URL_PRIVATE; // PRIVATE STREAM
         request.connectionHandler = (connection) -> connection.send(Channels.userDataChannel(listenKey));
 
         request.jsonParser = (jsonWrapper) -> {
@@ -544,5 +559,4 @@ class WebsocketRequestImpl {
         };
         return request;
     }
-
 }

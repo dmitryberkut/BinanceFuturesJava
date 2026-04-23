@@ -35,7 +35,8 @@ public class WebSocketConnection extends WebSocketListener {
     private final int connectionId;
     private final boolean autoClose;
 
-    private String subscriptionUrl = BinanceApiConstants.WS_API_BASE_URL;
+    // Убрали жесткую инициализацию старым адресом
+    private String subscriptionUrl;
 
     WebSocketConnection(WebsocketRequest request,
                         WebSocketWatchDog watchDog) {
@@ -47,10 +48,21 @@ public class WebSocketConnection extends WebSocketListener {
         this.request = request;
         this.autoClose = autoClose;
 
+        // --- НОВАЯ ЛОГИКА МАРШРУТИЗАЦИИ (Шаг 4) ---
+        if (request.baseUrl != null && !request.baseUrl.isEmpty()) {
+            this.subscriptionUrl = request.baseUrl;
+        } else {
+            // Fallback: если baseUrl не задан, используем старый URL
+            this.subscriptionUrl = BinanceApiConstants.WS_API_BASE_URL;
+        }
+        // -----------------------------------------
+
         this.okhttpRequest = request.authHandler == null ? new Request.Builder().url(subscriptionUrl).build()
                 : new Request.Builder().url(subscriptionUrl).build();
         this.watchDog = watchDog;
-        log.info("[Sub] Connection [id: " + this.connectionId + "] created for " + request.name);
+        
+        // Добавили subscriptionUrl в лог, чтобы было видно, куда идет подключение
+        log.info("[Sub] Connection [id: " + this.connectionId + "] created for " + request.name + " at " + subscriptionUrl);
     }
 
     int getConnectionId() {

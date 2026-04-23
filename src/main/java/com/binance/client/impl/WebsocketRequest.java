@@ -13,6 +13,7 @@ class WebsocketRequest<T> {
 
     String signatureVersion = "2";
     String name;
+    String baseUrl = com.binance.client.constant.BinanceApiConstants.WS_API_BASE_URL_MARKET;
     Handler<WebSocketConnection> connectionHandler;
     Handler<WebSocketConnection> authHandler = null;
     final SubscriptionListener<T> updateCallback;

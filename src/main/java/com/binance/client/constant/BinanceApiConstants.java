@@ -13,8 +13,17 @@ public class BinanceApiConstants {
     public static final String API_BASE_URL = "https://fapi.binance.com";
 
     /**
-     * Streaming API base URL.
+     * Streaming API base URLs for Binance USDⓈ-M Futures (Updated Architecture)
      */
+    public static final String WS_API_BASE_URL_PUBLIC = "wss://fstream.binance.com/public/ws";
+    public static final String WS_API_BASE_URL_MARKET = "wss://fstream.binance.com/market/ws";
+    public static final String WS_API_BASE_URL_PRIVATE = "wss://fstream.binance.com/private/ws";
+
+    /**
+     * @deprecated Original base URL. Will be disconnected after April 23, 2026.
+     * Use the specific PUBLIC, MARKET, or PRIVATE constants instead.
+     */
+    @Deprecated
     public static final String WS_API_BASE_URL = "wss://fstream.binance.com/ws";
 
     /**
